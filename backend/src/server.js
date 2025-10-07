@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Preparação para implantação
+// Preparação para deploy
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 

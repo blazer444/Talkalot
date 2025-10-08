@@ -39,6 +39,10 @@ export const signup = async (req, res) => {
             generateToken(newUser._id, res)
             await newUser.save();
 
+            //Se o usuario persistir, retornar os dados do usuario
+            const savedUser = await newUser.save();
+            generateToken(savedUser._id, res);
+
             res.status(201).json({
                 _id: newUser._id,
                 fullName: newUser.fullName,

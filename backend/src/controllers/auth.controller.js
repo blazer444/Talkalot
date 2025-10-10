@@ -39,10 +39,6 @@ export const signup = async (req, res) => {
         })
 
         if (newUser) {
-            generateToken(newUser._id, res)
-            await newUser.save();
-
-            //Se o usuario persistir, retornar os dados do usuario
             const savedUser = await newUser.save();
             generateToken(savedUser._id, res);
 
@@ -72,6 +68,10 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        if (!email || !password) {
+            return res.status(400).json({ message: "Por favor, preencha todos os campos." });
+        }
+
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "Credenciais inválidas." });
             // Nunca dizer ao usuario qual está incorreto, para não dar pistas a um possível invasor

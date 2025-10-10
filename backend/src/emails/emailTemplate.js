@@ -31,7 +31,7 @@ export function createWelcomeEmailTemplate(name, clientURL) {
     </div>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href=${clientURL} 
+      <a href="${clientURL}" 
          style="background: linear-gradient(135deg, #203A43, #2C5364); color: white; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: 500; display: inline-block; transition: 0.3s;">
          Abrir Talkalot
       </a>
@@ -40,7 +40,7 @@ export function createWelcomeEmailTemplate(name, clientURL) {
     <p style="margin-bottom: 5px; color: #B0B0B0;">Se precisar de ajuda ou tiver dúvidas, estamos sempre aqui para ajudar.</p>
     <p style="margin-top: 0; color: #B0B0B0;">Boas mensagens!</p>
     
-    <p style="margin-top: 25px; margin-bottom: 0; color: #888;">Atenxiosamente,<br>Equipe Talkalot</p>
+    <p style="margin-top: 25px; margin-bottom: 0; color: #888;">Atenciosamente,<br>Equipe Talkalot</p>
   </div>
   
   <div style="text-align: center; padding: 20px; color: #666; font-size: 12px;">

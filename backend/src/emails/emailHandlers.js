@@ -10,7 +10,7 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
   })
 
   if (error) {
-    console.error("Erro ao enviar e-mail de boas-vindas");
+    console.error("Erro ao enviar e-mail de boas-vindas", error);
     throw new Error("Falha ao enviar e-mail de boas-vindas");
   }
 

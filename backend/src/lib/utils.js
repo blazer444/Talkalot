@@ -10,7 +10,7 @@ const generateToken = (userId, res) => {
         maxAge: 7 * 24 * 60 * 60 * 1000, //milissegundos
         httpOnly: true, //previne Ataques XSS : Cross-site Scripting
         sameSite: "strict", //previne Ataques CSRF : Cross-site Request Forgery
-        secure: ENV.NODE.ENV === "development", //https
+        secure: ENV.NODE_ENV !== "production", //https
     });
 
     return token;

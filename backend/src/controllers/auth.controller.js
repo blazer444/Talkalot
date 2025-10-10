@@ -39,10 +39,6 @@ export const signup = async (req, res) => {
         })
 
         if (newUser) {
-            generateToken(newUser._id, res)
-            await newUser.save();
-
-            //Se o usuario persistir, retornar os dados do usuario
             const savedUser = await newUser.save();
             generateToken(savedUser._id, res);
 
@@ -66,4 +62,37 @@ export const signup = async (req, res) => {
         console.log("Erro no controle de cadastro:", error)
         res.status(500).json({ message: "Erro no servidor. Por favor, tente novamente mais tarde." });
      }
+};
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        if (!email || !password) {
+            return res.status(400).json({ message: "Por favor, preencha todos os campos." });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: "Credenciais inválidas." });
+            // Nunca dizer ao usuario qual está incorreto, para não dar pistas a um possível invasor
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if (!isPasswordCorrect) return res.status(400).json({ message: "Credenciais inválidas." });
+
+        generateToken(user._id, res)
+
+        res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            profilePic: user.profilePic,
+        });
+    } catch (error) {
+        console.error("Erro no controle de login:", error);
+        res.status(500).json({ message: "Erro no servidor. Por favor, tente novamente mais tarde." });
+    }
+};
+
+export const logout = (_, res) => {
+    res.cookie("jwt","",{maxAge:0})
+    res.status(200).json({ message: "Logout realizado com sucesso." });
 };

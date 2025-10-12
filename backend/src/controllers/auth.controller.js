@@ -6,7 +6,7 @@ import { ENV } from "../lib/env.js";
 import cloudinary from "../lib/cloudinary.js";
 
 
-export const singup = async (req, res) => {
+export const signup = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     try {

@@ -7,7 +7,7 @@ export const arcjetProtection = async (req, res, next) => {
 
         if (decision.isDenied()) {
             if (decision.reason.isRateLimit()) {
-                return res.status(429).json({ message: "Limite de solicitações excedida. Tente novamente mais tarde.." });
+                return res.status(429).json({ message: "Limite de solicitações excedida. Tente novamente mais tarde." });
             }
             else if (decision.reason.isBot()) {
                 return res.status(403).json({ message: "Acesso negado." });

@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@arcjet/inspect": "^1.0.0-beta.10",
+    "@arcjet/inspect": "^1.0.0-beta.13",
     "@arcjet/node": "^1.0.0-beta.13",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",

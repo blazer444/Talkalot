@@ -2,10 +2,11 @@ import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import generateToken from "../lib/utils.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
-import { ENV  } from "../lib/env.js";
+import { ENV } from "../lib/env.js";
+import cloudnary from "../lib/cloudnary.js";
 
 
-export const signup = async (req, res) => {
+export const singup = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     try {
@@ -61,7 +62,7 @@ export const signup = async (req, res) => {
     } catch (error) {
         console.log("Erro no controle de cadastro:", error)
         res.status(500).json({ message: "Erro no servidor. Por favor, tente novamente mais tarde." });
-     }
+    }
 };
 
 export const login = async (req, res) => {
@@ -74,7 +75,7 @@ export const login = async (req, res) => {
 
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "Credenciais inválidas." });
-            // Nunca dizer ao usuario qual está incorreto, para não dar pistas a um possível invasor
+        // Nunca dizer ao usuario qual está incorreto, para não dar pistas a um possível invasor
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) return res.status(400).json({ message: "Credenciais inválidas." });
 
@@ -93,6 +94,27 @@ export const login = async (req, res) => {
 };
 
 export const logout = (_, res) => {
-    res.cookie("jwt","",{maxAge:0})
+    res.cookie("jwt", "", { maxAge: 0 })
     res.status(200).json({ message: "Logout realizado com sucesso." });
+};
+
+export const updateProfile = async (req, res) => {
+    try {
+        const { profilePic } = req.body;
+        if (!profilePic) return res.status(400).json({ message: "Foto de perfil é necessária." });
+
+        const userId = req.user._id;
+
+        const uploadResponse = await cloudnary.uploader.upload(profilePic,);
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId, 
+            { profilePic: uploadResponse.secure_url }, { new: true }
+        );
+
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        console.log("Erro ao atualizar o perfil:", error);
+        res.status(500).json({ message: "Erro no servidor. Por favor, tente novamente mais tarde." });
+     }
 };

@@ -40,6 +40,23 @@ export const sendMessage = async (req, res) => {
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
 
+        if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+            return res.status(400).json({ message: "ID de destinatário inválido" });
+        }
+
+        if (senderId.equals(receiverId)) {
+            return res.status(400).json({ message: "Não é possível enviar mensagem para si mesmo" });
+        }
+
+        if (!text && !image) {
+            return res.status(400).json({ message: "Mensagem deve conter texto ou imagem" });
+        }
+
+        const receiver = await User.findById(receiverId);
+        if (!receiver) {
+            return res.status(404).json({ message: "Destinatário não encontrado" });
+        }
+
         let imageUrl;
         if (image) {
             // upload base64 image to cloudinary
@@ -88,7 +105,7 @@ export const getChatPartners = async (req, res) => {
             ),
         ];
 
-        const chatPartners = await User.find({ _id: {$in: chatPartnersIds }}).select("-password");
+        const chatPartners = await User.find({ _id: { $in: chatPartnersIds } }).select("-password");
 
         res.status(200).json(chatPartners);
     } catch (error) {

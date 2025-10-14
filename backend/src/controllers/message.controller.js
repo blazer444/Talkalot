@@ -1,3 +1,4 @@
+import mongo from "mongoose"
 import cloudinary from "../lib/cloudinary.js"
 import Message from "../models/Message.js"
 import User from "../models/User.js"
@@ -40,7 +41,7 @@ export const sendMessage = async (req, res) => {
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
 
-        if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+        if (!mongo.Types.ObjectId.isValid(receiverId)) {
             return res.status(400).json({ message: "ID de destinatário inválido" });
         }
 

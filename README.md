@@ -26,7 +26,6 @@
 | ⚡ **Mensagens em Tempo Real** | Comunicação instantânea com Socket.io. |
 | 🟢 **Status Online/Offline** | Mostra usuários ativos em tempo real. |
 | 🔔 **Sons de Notificação e Digitação** | Sons customizáveis com opção de ligar/desligar. |
-| 📨 **Emails Automáticos** | Envio de e-mail de boas-vindas com **Resend**. |
 | 🗂️ **Upload de Imagens** | Armazenamento de fotos e avatares via **Cloudinary**. |
 | 🧱 **API REST com Node.js & Express** | Estrutura escalável e bem organizada. |
 | 🧠 **Gerenciamento de Estado com Zustand** | Controle global eficiente no frontend. |
@@ -77,29 +76,6 @@ cd Talkalot
 ```bash
 cd backend
 npm install
-```
-
-.env
-```
-PORT=3000
-MONGO_URI=sua_mongo_uri_aqui
-
-NODE_ENV=development
-
-JWT_SECRET=sua_jwt_secret
-
-RESEND_API_KEY=sua_resend_api_key
-EMAIL_FROM=seu_email_from_address_aqui
-EMAIL_FROM_NAME=seu_email_from_name_aqui
-
-CLIENT_URL=http://localhost:5173
-
-CLOUDINARY_CLOUD_NAME=seu_cloudinary_cloud_name
-CLOUDINARY_API_KEY=sua_cloudinary_api_key
-CLOUDINARY_API_SECRET=sua_cloudinary_api_secret
-
-ARCJET_KEY=seu_arcjet_key
-ARCJET_ENV=development
 ```
 
 Inicie o servidor
